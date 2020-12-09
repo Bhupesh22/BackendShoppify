@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="projectModelStoreContainer" CdmEntityContainer="projectEntities">
+    <EntitySetMapping Name="tblCarts">
+      <EntityTypeMapping TypeName="projectModel.tblCart">
+        <MappingFragment StoreEntitySet="tblCart">
+          <ScalarProperty Name="cartid" ColumnName="cartid" />
+          <ScalarProperty Name="useremail" ColumnName="useremail" />
+          <ScalarProperty Name="productid" ColumnName="productid" />
+          <ScalarProperty Name="cartquantity" ColumnName="cartquantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblCategories">
+      <EntityTypeMapping TypeName="projectModel.tblCategory">
+        <MappingFragment StoreEntitySet="tblCategory">
+          <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+          <ScalarProperty Name="categoryname" ColumnName="categoryname" />
+          <ScalarProperty Name="categorydescription" ColumnName="categorydescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOrders">
+      <EntityTypeMapping TypeName="projectModel.tblOrder">
+        <MappingFragment StoreEntitySet="tblOrder">
+          <ScalarProperty Name="orderid" ColumnName="orderid" />
+          <ScalarProperty Name="orderdate" ColumnName="orderdate" />
+          <ScalarProperty Name="useremail" ColumnName="useremail" />
+          <ScalarProperty Name="productid" ColumnName="productid" />
+          <ScalarProperty Name="retailerid" ColumnName="retailerid" />
+          <ScalarProperty Name="orderquantity" ColumnName="orderquantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblProducts">
+      <EntityTypeMapping TypeName="projectModel.tblProduct">
+        <MappingFragment StoreEntitySet="tblProduct">
+          <ScalarProperty Name="productid" ColumnName="productid" />
+          <ScalarProperty Name="productname" ColumnName="productname" />
+          <ScalarProperty Name="productprice" ColumnName="productprice" />
+          <ScalarProperty Name="productquantity" ColumnName="productquantity" />
+          <ScalarProperty Name="productdescription" ColumnName="productdescription" />
+          <ScalarProperty Name="productbrand" ColumnName="productbrand" />
+          <ScalarProperty Name="productimage1" ColumnName="productimage1" />
+          <ScalarProperty Name="retailerid" ColumnName="retailerid" />
+          <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRetailers">
+      <EntityTypeMapping TypeName="projectModel.tblRetailer">
+        <MappingFragment StoreEntitySet="tblRetailer">
+          <ScalarProperty Name="retailerid" ColumnName="retailerid" />
+          <ScalarProperty Name="retailername" ColumnName="retailername" />
+          <ScalarProperty Name="retaileremail" ColumnName="retaileremail" />
+          <ScalarProperty Name="retailerpassword" ColumnName="retailerpassword" />
+          <ScalarProperty Name="approved" ColumnName="approved" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUsers">
+      <EntityTypeMapping TypeName="projectModel.tblUser">
+        <MappingFragment StoreEntitySet="tblUser">
+          <ScalarProperty Name="useremail" ColumnName="useremail" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="userphone" ColumnName="userphone" />
+          <ScalarProperty Name="userpassword" ColumnName="userpassword" />
+          <ScalarProperty Name="userapartment" ColumnName="userapartment" />
+          <ScalarProperty Name="userstreet" ColumnName="userstreet" />
+          <ScalarProperty Name="usertown" ColumnName="usertown" />
+          <ScalarProperty Name="userstate" ColumnName="userstate" />
+          <ScalarProperty Name="userpincode" ColumnName="userpincode" />
+          <ScalarProperty Name="usercountry" ColumnName="usercountry" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
