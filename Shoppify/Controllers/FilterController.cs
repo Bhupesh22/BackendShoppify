@@ -56,7 +56,7 @@ namespace Shoppify.Controllers
 
                     return Request.CreateResponse(HttpStatusCode.OK, mob);
 
-                case "TV & Home Entertainment":
+                case "TV and Home Entertainment":
                     var ent = (from p in db.tblProducts
                                join c in db.tblCategories
                                on p.categoryid equals c.categoryid
@@ -69,7 +69,7 @@ namespace Shoppify.Controllers
                                    p.productimage1,
                                    c.categoryid,
                                    c.categoryname
-                               }).Where(c => c.categoryname == "TV & Home Entertainment").ToList();
+                               }).Where(c => c.categoryname == "TV and Home Entertainment").ToList();
 
                     return Request.CreateResponse(HttpStatusCode.OK, ent);
 
