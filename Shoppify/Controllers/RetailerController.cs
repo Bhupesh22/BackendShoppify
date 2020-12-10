@@ -47,24 +47,37 @@ namespace Shoppify.Controllers
 
         public HttpResponseMessage register(string retailername, string retaileremail, string retailerpassword)
         {
-
-            tblRetailer retailer = new tblRetailer()
+            try
             {
-                retailername = retailername,
-                retaileremail = retaileremail,
-                retailerpassword = retailerpassword,
-                approved = 0
+                tblRetailer retailer = new tblRetailer()
+                {
+                    retailername = retailername,
+                    retaileremail = retaileremail,
+                    retailerpassword = retailerpassword,
+                    approved = 0
 
-            };
+                };
 
-            db.tblRetailers.Add(retailer);
-            db.SaveChanges();
-            return Request.CreateResponse(HttpStatusCode.OK, "valid");
+                db.tblRetailers.Add(retailer);
+                db.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.OK, "valid");
+            }
+            catch(Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "invalid");
+            }
         }
 
         public bool CheckRetailer(string retaileremail, string oldpassword)
         {
-            var result = db.tblRetailers.Where(x => x.retaileremail == retaileremail && x.retailerpassword == oldpassword);
+            var result = db.tblRetailers.Where(x => x.retaileremail == retaileremail);
+            try
+            {
+                var pass = db.tblRetailers.Where(x => x.retailerpassword == oldpassword);
+            }
+            catch (Exception e) {
+                return false;
+            }
             if(result != null)
             {
                 return true;
@@ -75,11 +88,24 @@ namespace Shoppify.Controllers
             }
         }
 
-        public int getid(string retaileremail)
+        public int getid(string retaileremail, string retailerpassword)
         {
             tblRetailer retailer = new tblRetailer();
-            retailer.retailerid = db.tblRetailers.First(x=>x.retaileremail==retaileremail).retailerid;
-            return retailer.retailerid;
+            if(CheckRetailer(retaileremail, retailerpassword))
+            {
+                try
+                {
+                    retailer.retailerid = db.tblRetailers.First(x => x.retaileremail == retaileremail && x.retailerpassword==retailerpassword).retailerid;
+                    return retailer.retailerid;
+                }
+                catch(Exception e)
+                {
+                    return 0;
+                }
+                
+            }
+            return 0;
+            
         }
 
         [Route("ChangePassword")]
@@ -89,12 +115,20 @@ namespace Shoppify.Controllers
             
             if(CheckRetailer(retaileremail, retailerpassword))
             {
-                int retailerid = getid(retaileremail);
-                var query = db.tblRetailers.Find(retailerid);
-                query.retailerpassword = newpassword;
-                db.Entry(query).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.OK, "valid");
+                int retailerid = getid(retaileremail, retailerpassword);
+                if(retailerid != 0)
+                {
+                    var query = db.tblRetailers.Find(retailerid);
+                    query.retailerpassword = newpassword;
+                    db.Entry(query).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.OK, "valid");
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, "invalid");
+                }
+                
             }
             else
             {

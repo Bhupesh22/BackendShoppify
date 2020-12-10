@@ -16,12 +16,19 @@ namespace Shoppify.Controllers
         [HttpGet]
         public HttpResponseMessage checkLogin(string useremail, string userpassword)
         {
-            var result = db.tblUsers.Where(x => x.useremail == useremail && x.userpassword == userpassword);
-            if (result != null)
+            try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, "Success");
-            }
-            else
+                var result = db.tblUsers.Where(x => x.useremail == useremail).FirstOrDefault();
+                var pass = db.tblUsers.Where(x => x.userpassword == userpassword).FirstOrDefault();
+                if (result != null && pass != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, "Success");
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, "Invalid");
+                }
+            }catch(Exception e)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, "Invalid");
             }
@@ -40,6 +47,27 @@ namespace Shoppify.Controllers
             }
         }
 
+        public bool CheckEmail1(string email, string userpassword)
+        {   
+            try
+            {
+                var isValidEmail = db.tblUsers.Where(w => w.useremail == email).FirstOrDefault();
+                var pass = db.tblUsers.Where(w => w.userpassword == userpassword).FirstOrDefault();
+                if (isValidEmail != null && pass != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+            
+        }
 
 
         [Route("RegisterUser")]
@@ -74,7 +102,7 @@ namespace Shoppify.Controllers
         [HttpPut]
         public HttpResponseMessage changeUserPassword(string useremail, string userpassword, string newpassword)
         {
-            if (!CheckEmail(useremail))
+            if (CheckEmail1(useremail, userpassword))
             {
                 var query = db.tblUsers.Find(useremail);
                 query.userpassword = newpassword;
